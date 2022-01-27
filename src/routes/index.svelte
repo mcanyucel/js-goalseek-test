@@ -68,19 +68,52 @@
 		to js-goalseek test app.
 	</h1>
 
-	<h2>
-		The target value of function <p>{functionString}</p> for goal <p>{goal}</p> is <p>{result.toFixed(3)}</p> with a function value of <p>{fval.toFixed(3)}</p>The error is <p>{((goal-fval)/goal * 100).toFixed(2)}%</p>
-	</h2>
-
-	{#if errString !==""}
-		<p>Could not solve: {errString}</p>
-	{/if}
-
-	<h2>
-		Tolerance: {tolerance}% - Max. Iterations: {maxIterations} - Max. Step: {maxStep}
-	</h2>
-
-	
+	<table>
+		<tr>
+			<td>Function</td>
+			<td>{functionString}</td>
+		</tr>
+		<tr>
+			<td>Goal</td>
+			<td>{goal}</td>
+		</tr>
+		<tr>
+			<td>Result</td>
+			{#if errString !==""}
+				<td>Could not solve: {errString}</td>
+			{:else}
+				<td>{result.toFixed(3)}</td>
+			{/if}
+		</tr>
+		<tr>
+			<td>Function value</td>
+			{#if errString !==""}
+				<td>Could not solve: {errString}</td>
+			{:else}
+			<td>{fval.toFixed(3)}</td>
+			{/if}
+		</tr>
+		<tr>
+			<td>Result L1 Norm (Error)</td>
+			{#if errString !==""}
+				<td>Could not solve: {errString}</td>
+			{:else}
+			<td>{((goal-fval)/goal * 100).toFixed(2)}%</td>
+			{/if}
+		</tr>
+		<tr>
+			<td>Tolerance</td>
+			<td>{tolerance}</td>
+		</tr>
+		<tr>
+			<td>Max. Iterations</td>
+			<td>{maxIterations}</td>
+		</tr>
+		<tr>
+			<td>Max. Step Size</td>
+			<td>{maxStep}</td>
+		</tr>
+	</table>
 </section>
 
 <style>
@@ -96,13 +129,6 @@
 		width: 100%;
 	}
 
-	p {
-		color: red;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
 	.welcome {
 		position: relative;
 		width: 100%;
@@ -116,5 +142,20 @@
 		height: 100%;
 		top: 0;
 		display: block;
+	}
+	table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	}
+
+	td {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+	}	
+
+	td:nth-child(odd) {
+		font-weight: bold;
 	}
 </style>
