@@ -11,20 +11,19 @@
 	let fval = -1;
 	let errString = "";
 	const startValue = 20;
-	const maxStep = 0.1;
-	const tolerance = 1;
-	const goal = 1476.32;
-	const maxIterations = 1000;
+	let maxStep = 0.1;
+	let tolerance = 1;
+	let goal = 1525;
+	let maxIterations = 1000;
 	const fn = (x: number): number => 1.746 * Math.pow(x, 2) - 3.742 * x;
-
 	functionString = fn.toString();
 
 	
 	
 
 	onMount(() => {
-		result = solve();
-		fval = fn(result);
+		solve();
+		
 	});
 
 	const solve = ():number => {
@@ -34,8 +33,8 @@
 		const fnParams = [x];
 
 		try {
-			return goalSeek({
-				fn,
+			result = goalSeek({
+				fn: fn,
 				fnParams,
 				percentTolerance: tolerance,
 				maxIterations: maxIterations,
@@ -43,6 +42,7 @@
 				goal: goal,
 				independentVariableIdx: 0
 			});	
+			fval = fn(result);
 		} catch (e) {
 			errString = e.message;
 			console.log(errString);
@@ -75,7 +75,19 @@
 		</tr>
 		<tr>
 			<td>Goal</td>
-			<td>{goal}</td>
+			<td><input bind:value="{goal}" type="number" step="any" /></td>
+		</tr>
+		<tr>
+			<td>Tolerance %</td>
+			<td><input bind:value="{tolerance}" type="number" step="any" /></td>
+		</tr>
+		<tr>
+			<td>Max. Iterations</td>
+			<td><input bind:value="{maxIterations}" type="number" step="any" /></td>
+		</tr>
+		<tr>
+			<td>Max. Step Size</td>
+			<td><input bind:value="{maxStep}" type="number" step="any" /></td>
 		</tr>
 		<tr>
 			<td>Result</td>
@@ -101,19 +113,8 @@
 			<td>{((goal-fval)/goal * 100).toFixed(2)}%</td>
 			{/if}
 		</tr>
-		<tr>
-			<td>Tolerance</td>
-			<td>{tolerance}</td>
-		</tr>
-		<tr>
-			<td>Max. Iterations</td>
-			<td>{maxIterations}</td>
-		</tr>
-		<tr>
-			<td>Max. Step Size</td>
-			<td>{maxStep}</td>
-		</tr>
 	</table>
+	<button class="btn-block" on:click="{()=> solve()}">Solve</button>
 </section>
 
 <style>
@@ -157,5 +158,11 @@
 
 	td:nth-child(odd) {
 		font-weight: bold;
+	}
+
+	.btn-block {
+		display: inline-block;
+		min-width: 30%;
+		text-align: center;
 	}
 </style>
