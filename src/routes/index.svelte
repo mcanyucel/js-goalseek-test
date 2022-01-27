@@ -6,6 +6,15 @@
 	import goalSeek from 'goal-seek';
 	import { onMount } from 'svelte';
 
+	/*
+	 * A good set of parameters:
+	 * tolerance 0.1
+	 * max. iterations 100000
+	 * max step size 0.01
+	 * 
+	 * These work for goals from 1e3 to 1e6
+	 */
+
 	let functionString: string;
 	let result = -1;
 	let fval = -1;
