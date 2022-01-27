@@ -11,14 +11,14 @@
 	 * tolerance 0.1
 	 * max. iterations 100000
 	 * max step size 0.01
-	 * 
+	 *
 	 * These work for goals from 1e3 to 1e6
 	 */
 
 	let functionString: string;
 	let result = -1;
 	let fval = -1;
-	let errString = "";
+	let errString = '';
 	const startValue = 20;
 	let maxStep = 0.1;
 	let tolerance = 1;
@@ -27,18 +27,14 @@
 	const fn = (x: number): number => 1.746 * Math.pow(x, 2) - 3.742 * x;
 	functionString = fn.toString();
 
-	
-	
-
 	onMount(() => {
 		solve();
-		
 	});
 
-	const solve = ():number => {
-		errString = "";
+	const solve = (): number => {
+		errString = '';
 		let x = startValue;
-		
+
 		const fnParams = [x];
 
 		try {
@@ -50,12 +46,12 @@
 				maxStep: maxStep,
 				goal: goal,
 				independentVariableIdx: 0
-			});	
+			});
 			fval = fn(result);
 		} catch (e) {
 			errString = e.message;
 			console.log(errString);
-			
+
 			return -1;
 		}
 	};
@@ -84,23 +80,23 @@
 		</tr>
 		<tr>
 			<td>Goal</td>
-			<td><input bind:value="{goal}" type="number" step="any" /></td>
+			<td><input bind:value={goal} type="number" step="any" /></td>
 		</tr>
 		<tr>
 			<td>Tolerance %</td>
-			<td><input bind:value="{tolerance}" type="number" step="any" /></td>
+			<td><input bind:value={tolerance} type="number" step="any" /></td>
 		</tr>
 		<tr>
 			<td>Max. Iterations</td>
-			<td><input bind:value="{maxIterations}" type="number" step="any" /></td>
+			<td><input bind:value={maxIterations} type="number" step="any" /></td>
 		</tr>
 		<tr>
 			<td>Max. Step Size</td>
-			<td><input bind:value="{maxStep}" type="number" step="any" /></td>
+			<td><input bind:value={maxStep} type="number" step="any" /></td>
 		</tr>
 		<tr>
 			<td>Result</td>
-			{#if errString !==""}
+			{#if errString !== ''}
 				<td>Could not solve: {errString}</td>
 			{:else}
 				<td>{result.toFixed(3)}</td>
@@ -108,22 +104,22 @@
 		</tr>
 		<tr>
 			<td>Function value</td>
-			{#if errString !==""}
+			{#if errString !== ''}
 				<td>Could not solve: {errString}</td>
 			{:else}
-			<td>{fval.toFixed(3)}</td>
+				<td>{fval.toFixed(3)}</td>
 			{/if}
 		</tr>
 		<tr>
 			<td>Result L1 Norm (Error)</td>
-			{#if errString !==""}
+			{#if errString !== ''}
 				<td>Could not solve: {errString}</td>
 			{:else}
-			<td>{((goal-fval)/goal * 100).toFixed(2)}%</td>
+				<td>{(((goal - fval) / goal) * 100).toFixed(2)}%</td>
 			{/if}
 		</tr>
 	</table>
-	<button class="btn-block" on:click="{()=> solve()}">Solve</button>
+	<button class="btn-block" on:click={() => solve()}>Solve</button>
 </section>
 
 <style>
@@ -154,16 +150,16 @@
 		display: block;
 	}
 	table {
-	font-family: arial, sans-serif;
-	border-collapse: collapse;
-	width: 100%;
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
 	}
 
 	td {
-	border: 1px solid #dddddd;
-	text-align: left;
-	padding: 8px;
-	}	
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
 
 	td:nth-child(odd) {
 		font-weight: bold;
