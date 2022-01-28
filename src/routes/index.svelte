@@ -31,7 +31,7 @@
 		solve();
 	});
 
-	const solve = (): number => {
+	const solve = () => {
 		errString = '';
 		let x = startValue;
 
@@ -51,8 +51,6 @@
 		} catch (e) {
 			errString = e.message;
 			console.log(errString);
-
-			return -1;
 		}
 	};
 </script>
